@@ -13,20 +13,49 @@
  *
  * Given a string containing only digits, restore it by returning all possible
  * valid IP address combinations.
- * 
+ *
  * Example:
- * 
- * 
+ *
+ *
  * Input: "25525511135"
  * Output: ["255.255.11.135", "255.255.111.35"]
- * 
- * 
+ *
+ *
  */
+
+function restoreIp(ret, s, index, count, temp) {
+  if (count > 4) return;
+  if (count === 4 && index === s.length) {
+    ret.push(temp);
+  }
+
+  for (let i = 1; i < 4; i++) {
+    if (index + i > s.length) break;
+    ss = s.substring(index, index + i);
+    if (
+      (ss.startsWith("0") && ss.length > 1) ||
+      (parseInt(ss) >= 256 && i === 3)
+    ) {
+      continue;
+    }
+    restoreIp(
+      ret,
+      s,
+      index + i,
+      count + 1,
+      temp + ss + (count === 3 ? "" : ".")
+    );
+  }
+}
+
 /**
  * @param {string} s
  * @return {string[]}
  */
 var restoreIpAddresses = function(s) {
-    
-};
+  let ret = [];
 
+  restoreIp(ret, s, 0, 0, "");
+
+  return ret;
+};
