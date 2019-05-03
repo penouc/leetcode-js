@@ -38,3 +38,31 @@ var pathSum = function(root, sum) {
 
   return ret;
 };
+
+function helper(tree, sum, sub, ret) {
+  if (!tree) return;
+
+  sub.push(tree.val);
+  if (!tree.left && !tree.right && sum === tree.val) {
+    ret.push(sub.slice(0));
+    sub.pop();
+    return;
+  } else {
+    helper(tree.left, sum - tree.val, sub, ret);
+    helper(tree.right, sum - tree.val, sub, ret);
+  }
+  sub.pop();
+}
+
+/**
+ * @param {TreeNode} root
+ * @param {number} sum
+ * @return {number[][]}
+ */
+var pathSum = function(root, sum) {
+  let ret = [];
+  let sub = [];
+  helper(root, sum, sub, ret);
+
+  return ret;
+};
