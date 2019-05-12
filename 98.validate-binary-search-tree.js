@@ -42,3 +42,28 @@ function helper(node, lower, upper) {
 var isValidBST = function(root) {
   return helper(root, null, null);
 };
+
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function(root) {
+  let stack = [];
+  let inorder = Number.NEGATIVE_INFINITY;
+
+  while (stack.length > 0 || root !== null) {
+    while (root !== null) {
+      stack.push(root);
+      root = root.left;
+    }
+    root = stack.pop();
+
+    if (root.val <= inorder) {
+      return false;
+    }
+    inorder = root.val;
+    root = root.right;
+  }
+
+  return true;
+};
