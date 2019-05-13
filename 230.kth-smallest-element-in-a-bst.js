@@ -16,7 +16,6 @@
  * @return {number}
  */
 var kthSmallest = function(root, k) {
-    let count = 0;
     let stack = [];
 
     while(stack.length > 0 || root !== null) {
@@ -26,8 +25,8 @@ var kthSmallest = function(root, k) {
         }
 
         root = stack.pop();
-        count++;
-        if(count === k){
+        k--;
+        if(0 === k){
             return root.val;
         }
         root = root.right;
