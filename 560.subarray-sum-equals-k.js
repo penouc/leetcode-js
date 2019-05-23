@@ -30,3 +30,20 @@ var subarraySum = function(nums, k) {
 
   return count;
 };
+
+var subarraySum = function(nums, k) {
+  let len = nums.length;
+  let count = 0;
+  let sum = 0;
+  let hash = {};
+  hash[0] = 1;
+
+  for (let i = 0; i < len; i++) {
+    sum += nums[i];
+    if (hash[sum - k]) {
+      count += hash[sum - k];
+    }
+    hash[sum] = (hash[sum] || 0) + 1;
+  }
+  return count;
+};
